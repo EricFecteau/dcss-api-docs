@@ -1,5 +1,5 @@
 ---
-title: "Dcss-api-docs/"
+title: "Dcss-api-docs"
 ---
 
 This is a Quarto website.
