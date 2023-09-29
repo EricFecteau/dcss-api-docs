@@ -1,7 +1,10 @@
 ---
-title: "Dcss-api-docs"
+title: "DCSS Webtile API Documentation"
 ---
 
-This is a Quarto website.
+## Table of contents:
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+* [Connection to the DCSS Webtile websocket](connection.qmd)
+* Sending and receiving data
+* Commands for the lobby
+* Starting a game
