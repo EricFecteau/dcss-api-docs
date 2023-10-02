@@ -4,7 +4,7 @@ title: "DCSS Webtile API Documentation"
 
 ## Table of contents:
 
-* [Connection to the DCSS Webtile websocket](connection.qmd)
+* [Connecting to DCSS Webtiles](connection.qmd)
 * Sending and receiving data
 * Commands for the lobby
 * Starting a game

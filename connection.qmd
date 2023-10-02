@@ -1,14 +1,12 @@
 ---
-title: "Connection to DCSS Webtiles"
+title: "Connecting to DCSS Webtiles"
 ---
-
-## Introduction
 
 [DCSS Webtiles](https://crawl.develz.org/wordpress/howto) uses websocket to communicate between the client and the DCSS server. 
 
 ## Connecting to DCSS webtiles through websocket
 
-You can connect to the websocket of the DCSS webtile using [tungstenite](https://docs.rs/tungstenite/latest/tungstenite/) for Rust or [websockets](https://websockets.readthedocs.io/en/stable/) for Python. The example below assumes a DCSS webtile on 'localhost:8080'. Running it will provide you some [ZLIB](https://www.zlib.net/) compressed data.
+You can connect to the websocket of the DCSS webtiles using [tungstenite](https://docs.rs/tungstenite/latest/tungstenite/) for Rust or [websockets](https://websockets.readthedocs.io/en/stable/) for Python. The example below assumes a DCSS webtiles on 'localhost:8080'. Running it will provide you some [ZLIB](https://www.zlib.net/) compressed data.
 
 For Rust:
 
@@ -157,3 +155,11 @@ asyncio.run(connect_and_send())
 If you watch on http://localhost:8080/#lobby, you will see for 5 seconds the user named `Username` playing a game of `dcss-web-trunk`.
 
 See what can be sent and what will be received [on the next page](sending_receiving.qmd).
+
+## Connecting to a public DCSS Webtiles server
+
+It is possible to send and receive commands (e.g. play the game) at an incredibly fast pace, but full speed should be restricted to local games only (e.g. running DCSS Webtiles server on your local computer or a server you own). When connecting to a public server, limit your play speed to a maximum of one sent command per 100 milliseconds. Follow any other restrictions from the server (e.g. no bot chat interaction).
+
+## Websocket Secure (wss) connection
+
+DCSS Webtiles can have secure connections enabled, especially public servers. You can tell if a link is secured if the websocket link starts with "wss" instead of "ws". In Rust, no change in code is necessary, but the `native-tls-vendored` feature flag must be enabled for tungstenite: `tungstenite = { version = "0.20", features = ["native-tls-vendored"] }`. In python, the `websockets.connect(ws_link)` code must become `websockets.connect(ws_link, ssl = True)`.

@@ -3,20 +3,32 @@ project:
 
 website:
   title: "DCSS Website API Docs"
+  page-navigation: true
   sidebar:
-    style: "docked"
+    style: "floating"
     search: true
+    align: left
     contents:
       - href: index.qmd
         text: Home
       - section: "API"
         contents:
-          - connection.qmd
+          - href: connection.qmd
+            text: Connecting to DCSS Webtiles
+          - href: sending_receiving.qmd
+            text: Sending and receiving messages
+          - href: login_games.qmd
+            text: Login and games
 
 format:
   html:
+    code-overflow: wrap
     theme: 
-      light: flatly
       dark: darkly
+      light: flatly
     css: styles.css
     toc: true
+    grid:
+      sidebar-width: 300px
+      body-width: 900px
+      margin-width: 300px

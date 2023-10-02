@@ -2,9 +2,7 @@
 title: "Sending and receiving messages"
 ---
 
-## Introduction
-
-Once [connected](connection.qmd) to the DCSS webtile, the game will send various messages and will expect some interactions. 
+Once [connected](connection.qmd) to the DCSS Webtiles, the game will send various messages and will expect some interactions. 
 
 ## Receiving messages
 
@@ -16,19 +14,19 @@ The first few messages that are received, before the user sends any commands, ar
 {"msg": "lobby_complete"}
 ```
 
-All messages received from DCSS webtiles will have the `msg` dictionary key. This will indicate what type of message it is. The above three are simply information about the connection and the state of the lobby. Other messages will have other keys for additional information. Once the `lobby_complete` message is received, DCSS is ready to receive the next commands. It will not send anything until a command is received. See [Sending messages](#sending-messages).
+All messages received from DCSS webtiles will have the `msg` dictionary key. This will indicate what type of message it is. The above three are simply information about the connection and the state of the lobby. Other messages will have other keys for additional information. Once the `lobby_complete` message is received, DCSS is ready to receive the next commands. It will not send anything until a command is received.
 
 ## Sending messages
 
-All messages send to DCSS Webtile have to be in the JSON format. The most basic form are simple key presses, a "msg" key of type "input", with a "text" key with the specified key(s).
+All messages sent to DCSS Webtiles have to be in the JSON format. The most basic form are simple key presses, a "msg" key of type "input", with a "text" key with the specified key(s).
 
-For example, this will send the `.` (wait) key to DCSS webtile:
+For example, this will send the `.` (wait) key to DCSS Webtiles:
 
 ```python
 {"msg": "input", "text": "."}
 ```
 
-It is also possible to send multiple keys at once. This will send `yes` to DCSS webtile:
+It is also possible to send multiple keys at once. This will send `yes` to DCSS Webtiles:
 
 ```python
 {"msg": "input", "text": "yes"}
@@ -41,7 +39,7 @@ There are also multiple ways to send some of the commands. For example, both of 
 {"msg": "key", "keycode": 9}
 ```
 
-Here is a table representing the keycodes for each special key. The `dcss-api` column is the way to address them while using `dcss-api` -- (`webtile.write_key("key_esc")`).
+Here is a table representing the keycodes for each special key. The `dcss-api` column is the way to address them while using [dcss-api](https://github.com/EricFecteau/dcss-api) -- (`webtile.write_key("key_esc")`).
 
 | Key         | dcss-api         | JSON message                   |
 |-------------|------------------|--------------------------------|
@@ -85,29 +83,4 @@ Here is a table representing the keycodes for each special key. The `dcss-api` c
 | Up stairs   | "key_stair_up"   | {"msg": "input", "text": "<"}  |
 | enter       | "key_enter"      | {"msg": "input", "text": "\r"} |
 
-There are a few special JSON messages that are accepted by the game, especially to navigate the lobby. Here are some of them. More of them (especially the admin and user commands), can be found [here in code](https://github.com/crawl/crawl/blob/e618eeaa78d0fb2a4ce7915313cc9e649aa10571/crawl-ref/source/webserver/webtiles/ws_handler.py#L321).
-
-```python
-# Go to the lobby
-{"msg": "go_lobby"}
-
-# Login
-{"msg": "login", "username": "Username", "password": "Password"}
-
-# Login with cookie
-{"msg": "token_login", "cookie": "Username%123456789123456789123456789"}
-
-# Request cookie
-{"msg": "set_login_cookie"}
-
-# Play game
-{"msg": "play", "game_id": "dcss-web-trunk"}
-
-# Get RC file content
-{"msg": "get_rc", "game_id": "dcss-web-trunk"}
-
-# Set RC file content
-{"msg": "set_rc", "game_id": "dcss-web-trunk", "contents": "show_more = false\nrest_delay = -1"}
-```
-
-There are many dozens of types of data that can be received by DCSS Webtile. 
+There are a few special JSON messages that are accepted by the game, especially to navigate the lobby. The [lobby](lobby.qmd) page go over many of them in more details. Other ones, especially the admin and user commands, can be found [here in the DCSS Webtiles code](https://github.com/crawl/crawl/blob/e618eeaa78d0fb2a4ce7915313cc9e649aa10571/crawl-ref/source/webserver/webtiles/ws_handler.py#L321).
