@@ -19,6 +19,16 @@ website:
             text: Sending and receiving messages
           - href: login_games.qmd
             text: Login and games
+      - section: "Data"
+        contents:
+          - href: map.qmd
+            text: Map data
+          - href: monsters.qmd
+            text: Monster data
+          - href: character.qmd
+            text: Character data
+          - href: menus.qmd
+            text: Menu and UI data
 
 format:
   html:
