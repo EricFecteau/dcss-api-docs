@@ -1,8 +1,6 @@
 # Monster data
 
-## Introduction
-
-The monster data is sent along with the [dungeon map data](./dungeon_map.md).
+The monster data is sent along with the [dungeon map data](map.md).
 
 ## Receiving the data
 

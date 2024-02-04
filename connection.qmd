@@ -162,4 +162,4 @@ It is possible to send and receive commands (e.g. play the game) at an incredibl
 
 ## Websocket Secure (wss) connection
 
-DCSS Webtiles can have secure connections enabled, especially public servers. You can tell if a link is secured if the websocket link starts with "wss" instead of "ws". In Rust, no change in code is necessary, but the `native-tls-vendored` feature flag must be enabled for tungstenite: `tungstenite = { version = "0.20", features = ["native-tls-vendored"] }`. In python, the `websockets.connect(ws_link)` code must become `websockets.connect(ws_link, ssl = True)`.
+DCSS Webtiles can have secure connections enabled, especially public servers. You can tell if a link is secured if the websocket link starts with "wss" instead of "ws". In Rust, no change in code is necessary, but the `native-tls-vendored` feature flag must be enabled for tungstenite: `tungstenite = { version = "0.21", features = ["native-tls-vendored"] }`. In python, the `websockets.connect(ws_link)` code must become `websockets.connect(ws_link, ssl = True)`.
