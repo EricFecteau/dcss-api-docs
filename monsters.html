@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./map.html">Data</a></li><li class="breadcrumb-item"><a href="./monsters.html">Monster data</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./map.html">Data</a></li><li class="breadcrumb-item"><a href="./monsters.html">Monster data (TBD)</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -199,19 +199,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./monsters.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Monster data</span></a>
+ <span class="menu-text">Monster data (TBD)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./character.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Character data</span></a>
+ <span class="menu-text">Character data (TBD)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./menus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Menu and UI data</span></a>
+ <span class="menu-text">Menu and UI data (TBD)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./messages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Message data (TBD)</span></a>
   </div>
 </li>
       </ul>
@@ -235,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./map.html">Data</a></li><li class="breadcrumb-item"><a href="./monsters.html">Monster data</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./map.html">Data</a></li><li class="breadcrumb-item"><a href="./monsters.html">Monster data (TBD)</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Monster data</h1>
 </div>
@@ -254,10 +260,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The monster data is sent along with the <a href="map.md">dungeon map data</a>.</p>
+<p>The monster data is sent along with the <a href="./map.html">dungeon map data</a>.</p>
 <section id="receiving-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="receiving-the-data">Receiving the data</h2>
-<p>Below is the same map as described in the <a href="./dungeon_map.md">dungeon map data</a>, but with a <code>Worm</code> in the first visible row. The data dump below includes only the first two row of tiles (sent as if the monster was never seen before). The second row (starting with <code>'x': -2, 'y': -7</code>) contains the <code>'mon'</code> keyword in the second tile (the first visible tile) that has a monster dictionary as value. The first time a type of monster is encountered (<code>worm</code> in this case), the game will send various types of data (‘id’, ‘name’, ‘avghp’ and ‘threat’ being the most interesting).</p>
+<p>Below is the same map as described in the <a href="./map.html">dungeon map data</a>, but with a <code>Worm</code> in the first visible row. The data dump below includes only the first two row of tiles (sent as if the monster was never seen before). The second row (starting with <code>'x': -2, 'y': -7</code>) contains the <code>'mon'</code> keyword in the second tile (the first visible tile) that has a monster dictionary as value. The first time a type of monster is encountered (<code>worm</code> in this case), the game will send various types of data (‘id’, ‘name’, ‘avghp’ and ‘threat’ being the most interesting).</p>
 <p><img src="images/monsters/map_monster_1.JPG" class="img-fluid"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">'x'</span>: <span class="op">-</span><span class="dv">2</span>, <span class="st">'y'</span>: <span class="op">-</span><span class="dv">8</span>, <span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'x'</span>: <span class="op">-</span><span class="dv">2</span>, <span class="st">'y'</span>: <span class="op">-</span><span class="dv">7</span>, <span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'f'</span>: <span class="dv">33</span>, <span class="st">'mon'</span>: {<span class="st">'id'</span>: <span class="dv">1</span>, <span class="st">'name'</span>: <span class="st">'worm'</span>, <span class="st">'plural'</span>: <span class="st">'worms'</span>, <span class="st">'type'</span>: <span class="dv">54</span>, <span class="st">'typedata'</span>: {<span class="st">'avghp'</span>: <span class="dv">18</span>}, <span class="st">'att'</span>: <span class="dv">0</span>, <span class="st">'btype'</span>: <span class="dv">54</span>, <span class="st">'threat'</span>: <span class="dv">2</span>}, <span class="st">'mf'</span>: <span class="dv">1</span>, <span class="st">'g'</span>: <span class="st">'w'</span>, <span class="st">'col'</span>: <span class="dv">12</span>, <span class="st">'t'</span>: {<span class="st">'fg'</span>: <span class="dv">5116</span>, <span class="st">'bg'</span>: <span class="dv">4</span>, <span class="st">'doll'</span>: [[<span class="dv">5116</span>, <span class="dv">32</span>]], <span class="st">'mcache'</span>: <span class="va">None</span>}}, {<span class="st">'f'</span>: <span class="dv">33</span>, <span class="st">'mf'</span>: <span class="dv">1</span>, <span class="st">'g'</span>: <span class="st">'.'</span>, <span class="st">'col'</span>: <span class="dv">7</span>, <span class="st">'t'</span>: {<span class="st">'bg'</span>: <span class="dv">6</span>, <span class="st">'ov'</span>: [<span class="dv">2267</span>]}}, {<span class="st">'f'</span>: <span class="dv">7</span>, <span class="st">'mf'</span>: <span class="dv">2</span>, <span class="st">'g'</span>: <span class="st">'#'</span>, <span class="st">'col'</span>: <span class="dv">6</span>, <span class="st">'t'</span>: {<span class="st">'bg'</span>: <span class="dv">980</span>}}, {<span class="st">'mf'</span>: <span class="dv">26</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Assuming the character waits one turn, here is the updated map and data once the <code>worm</code> moves down south-east. Note that the ‘mon’ keyword get’s updated to <code>None</code> at the worm’s previous location (<code>'x': -1, 'y': -7</code>) and it’s ID can now be found at <code>'x': 0, 'y': -6</code>, where the monster appears in the image.</p>
@@ -837,8 +843,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./character.html" class="pagination-link" aria-label="Character data">
-        <span class="nav-page-text">Character data</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./character.html" class="pagination-link" aria-label="Character data  (TBD)">
+        <span class="nav-page-text">Character data (TBD)</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
