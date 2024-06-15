@@ -1,4 +1,6 @@
-# Monster data
+---
+title: "Monster data"
+---
 
 The monster data is sent along with the [dungeon map data](map.md).
 
@@ -8,7 +10,7 @@ Below is the same map as described in the [dungeon map data](./dungeon_map.md), 
 
 ![](images/monsters/map_monster_1.JPG)
 
-```json
+```python
 {'x': -2, 'y': -8, 'mf': 26}, {'mf': 26}, {'mf': 26}, {'mf': 26}, {'x': -2, 'y': -7, 'mf': 26}, {'f': 33, 'mon': {'id': 1, 'name': 'worm', 'plural': 'worms', 'type': 54, 'typedata': {'avghp': 18}, 'att': 0, 'btype': 54, 'threat': 2}, 'mf': 1, 'g': 'w', 'col': 12, 't': {'fg': 5116, 'bg': 4, 'doll': [[5116, 32]], 'mcache': None}}, {'f': 33, 'mf': 1, 'g': '.', 'col': 7, 't': {'bg': 6, 'ov': [2267]}}, {'f': 7, 'mf': 2, 'g': '#', 'col': 6, 't': {'bg': 980}}, {'mf': 26}
 ```
 
@@ -16,7 +18,7 @@ Assuming the character waits one turn, here is the updated map and data once the
 
 ![](images/monsters/map_monster_2.JPG)
 
-```json
+```python
 {'msg': 'map', 'cells': [{'x': -2, 'y': -8, 'mf': 26}, {'mf': 26}, {'mf': 26}, {'mf': 26}, {'x': -2, 'y': -7, 'mf': 26}, {'mon': None, 'g': '.', 'col': 7, 't': {'fg': 0, 'doll': None, 'mcache': None}}, {'x': 2, 'y': -7, 'mf': 26}, {'x': 0, 'y': -6, 'mon': {'id': 1}, 'g': 'w', 'col': 12, 't': {'fg': 5116, 'doll': [[5116, 32]], 'mcache': None}}, {'x': 2, 'y': -6, 'mf': 26}, {'x': -4, 'y': -5, 'mf': 26}, {'x': 2, 'y': -5, 'mf': 26}, {'x': -4, 'y': -4, 'mf': 26}, {'x': 2, 'y': -4, 'mf': 26}]}
 ```
 

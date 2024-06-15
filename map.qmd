@@ -1,4 +1,6 @@
-# Receiving the dungeon map data
+---
+title: "Map data"
+---
 
 The dungeon map data contains both the tile information and the monster information. The monster data is covered [here](monsters.qmd).
 
@@ -7,7 +9,6 @@ The dungeon map data contains both the tile information and the monster informat
 The tiles data sent is sent with the least amount of repeated information. Below is a dump of the `map` information according to the image. This dump is extremely small, compared to a normal map, because it contains a custom scenario for demonstration purpose (see [dcss-scenario-builder](https://github.com/EricFecteau/dcss-scenario-builder) for more info).
 
 ![](images/map/map_tiles_1.JPG)
-
 
 
 ```python

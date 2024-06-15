@@ -57,7 +57,7 @@ Once the login is successful, the game will provide various welcome `html` messa
 {"content": "Play now:\n\n\n\n<span>\n\n<br>\n<a href=\"#play-dcss-web-trunk\">\nPlay trunk</a>\n\n\n<a href=\"javascript:\"\nclass=\"edit_rc_link\"\ndata-game_id=\"dcss-web-trunk\">(edit rc)</a>\n\n</span>\n\n<span>\n\n | \n<a href=\"#play-seeded-web-trunk\">\nSeeded</a>\n\n\n</span>\n\n<span>\n\n | \n<a href=\"#play-tut-web-trunk\">\nTutorial</a>\n\n\n</span>\n\n<span>\n\n | \n<a href=\"#play-sprint-web-trunk\">\nSprint trunk</a>\n\n\n</span>\n\n\n", "msg": "set_game_links"}
 ```
 
-In this `set_game_links` message, you can find the game ids that will be required to change the `rc file` and to start a game. The game ids are marked by a `#` (e.g. `#play-dcss-web-trunk`) where the `#play-` should be discarded (e.g. `dcss-web-trunk`). In the above `set_game_links` you will find four game ids: `dcss-web-trunk`, `seeded-web-trunk`, `tut-web-trunk` and `sprint-web-trunk`.
+In this `set_game_links` message, you can find the game ids that will be required to change the `rc file` and to start a game. The game ids are marked by a `#` (e.g. `#play-dcss-web-trunk`) where the `#play-` should be discarded (e.g. `dcss-web-trunk`). In the above `set_game_links` you will find four game ids: `dcss-web-trunk`, `seeded-web-trunk`, `tut-web-trunk` and `sprint-web-trunk`. Starting with DCSS 0.31, an additional one is available: `descent-web-trunk`.
 
 ## Editing the rc file
 
@@ -100,7 +100,7 @@ If the game was seeded (e.g. `seeded-web-trunk`), a `ui-push` with a `seed-selec
 {"body":"Choose 0 for a random seed. [Tab]/[Shift-Tab] to cycle input focus.\n","footer":"\nThe seed will determine the dungeon layout, monsters, and items\nthat you discover, relative to this version of crawl. Upgrading\nmid-game may affect seeding. (See the manual for more details.)\n","generation_id":1,"msg":"ui-push","show_pregen_toggle":true,"title":"Play a game with a custom seed for version 0.30.1-4-g462c640d31.\n","type":"seed-selection","ui-centred":true}
 ```
 
-If there is a specific seed of interest (e.g. `1234`), the simplest way is to send these commands. It is important to wait for the `ui-state-sync` after clearing the typed seed (see [ui and menus]() for more info).
+If there is a specific seed of interest (e.g. `1234`), the simplest way is to send these commands. It is important to wait for the `ui-state-sync` after clearing the typed seed (see [ui and menus](menus.qmd) for more info).
 
 ```python
 {"msg": "input", "text": "-"} # Clear typed seed
@@ -111,7 +111,7 @@ If there is a specific seed of interest (e.g. `1234`), the simplest way is to se
 
 ### New game choice
 
-If the options was not written in the `rc file`, the game will require you to make three choices before the game begins: `species`, `background` and `weapon`. This will come up in three subsequent `ui-push` with `newgame-choice` in the `type` key. You can simply send the relevant keys for the option (e.g. Minotaur Berserker with a hand axe will be `b`, `i`, `c`). It is important to wait for the `ui-push` for each of the three choices (see [ui and menus]() for more info).
+If the options was not written in the `rc file`, the game will require you to make three choices before the game begins: `species`, `background` and `weapon`. This will come up in three subsequent `ui-push` with `newgame-choice` in the `type` key. You can simply send the relevant keys for the option (e.g. Minotaur Berserker with a hand axe will be `b`, `i`, `c`). It is important to wait for the `ui-push` for each of the three choices (see [ui and menus](menus.qmd) for more info).
 
 ```python
 {"msg": "input", "text": "b"} # Minotaur
@@ -121,4 +121,4 @@ If the options was not written in the `rc file`, the game will require you to ma
 
 If the seeded pre-generation option was selected, this will take a few seconds and you will received hundreds of `ui-state` messages of the `progress-bar` type as it pre-generates the dungeon.
 
-Once the game is started, it will send various messages with data such as [`player` information](), [`ui` messages](), [`msgs` from the log] and [`map` data](map.qmd) and the game will accept any of the standard keyboard inputs.
+Once the game is started, it will send various messages with data such as [character data](character.qmd), [ui data](menus.qmd), [msgs from the log](messages.qmd) and [`map` data](map.qmd) and the game will accept any of the standard keyboard inputs.
