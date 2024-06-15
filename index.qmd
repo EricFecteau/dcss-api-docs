@@ -2,7 +2,7 @@
 title: "DCSS Webtile API Documentation"
 ---
 
-## Table of contents:
+## Table of contents
 
 * API
     * [Connecting to DCSS Webtiles](connection.qmd)
