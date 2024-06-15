@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>DCSS Website API Docs - DCSS Webtile API Documentation</title>
+<title>DCSS Website API Docs - Lobby commands</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./connection.html" rel="next">
+<link href="./map.html" rel="next">
+<link href="./sending_receiving.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -83,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./connection.html">API</a></li><li class="breadcrumb-item"><a href="./login_games.html">Login and games</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -113,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
@@ -140,7 +175,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./login_games.html" class="sidebar-item-text sidebar-link">
+  <a href="./login_games.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Login and games</span></a>
   </div>
 </li>
@@ -191,16 +226,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#table-of-contents" id="toc-table-of-contents" class="nav-link active" data-scroll-target="#table-of-contents">Table of contents:</a></li>
+  <li><a href="#logging-in" id="toc-logging-in" class="nav-link active" data-scroll-target="#logging-in">Logging in</a>
+  <ul class="collapse">
+  <li><a href="#login-with-credential" id="toc-login-with-credential" class="nav-link" data-scroll-target="#login-with-credential">Login with credential</a></li>
+  <li><a href="#login-with-cookie" id="toc-login-with-cookie" class="nav-link" data-scroll-target="#login-with-cookie">Login with cookie</a></li>
+  </ul></li>
+  <li><a href="#game-ids" id="toc-game-ids" class="nav-link" data-scroll-target="#game-ids">Game ids</a></li>
+  <li><a href="#editing-the-rc-file" id="toc-editing-the-rc-file" class="nav-link" data-scroll-target="#editing-the-rc-file">Editing the rc file</a></li>
+  <li><a href="#starting-a-game" id="toc-starting-a-game" class="nav-link" data-scroll-target="#starting-a-game">Starting a game</a>
+  <ul class="collapse">
+  <li><a href="#seeded-game" id="toc-seeded-game" class="nav-link" data-scroll-target="#seeded-game">Seeded game</a></li>
+  <li><a href="#new-game-choice" id="toc-new-game-choice" class="nav-link" data-scroll-target="#new-game-choice">New game choice</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./connection.html">API</a></li><li class="breadcrumb-item"><a href="./login_games.html">Login and games</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">DCSS Webtile API Documentation</h1>
+<h1 class="title">Lobby commands</h1>
 </div>
 
 
@@ -217,16 +263,88 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="table-of-contents" class="level2">
-<h2 class="anchored" data-anchor-id="table-of-contents">Table of contents:</h2>
-<ul>
-<li><a href="./connection.html">Connecting to DCSS Webtiles</a></li>
-<li>Sending and receiving data</li>
-<li>Commands for the lobby</li>
-<li>Starting a game</li>
-</ul>
+<p>Once the <code>{"msg": "lobby_complete"}</code> JSON message is received, DCSS Webtiles is ready for commands. There are various things that can be done at this point.</p>
+<section id="logging-in" class="level2">
+<h2 class="anchored" data-anchor-id="logging-in">Logging in</h2>
+<p>You can login to the DCSS Webtiles with credentials (username and password), or with a <a href="https://en.wikipedia.org/wiki/HTTP_cookie">cookie</a> (if you have collected one previously).</p>
+<section id="login-with-credential" class="level3">
+<h3 class="anchored" data-anchor-id="login-with-credential">Login with credential</h3>
+<p>The first time you sign in, you must sign in with credentials (username and password). When sending the following (where this particular user is called <code>Username</code> and the password for that user is <code>Password</code>), you will receive a <code>login_success</code> message, if successful and a <code>login_fail</code>, if unsuccessful.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sent to webtiles: </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"login"</span>, <span class="st">"username"</span>: <span class="st">"Username"</span>, <span class="st">"password"</span>: <span class="st">"Password"</span>}</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Received if successful:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>{<span class="st">"username"</span>: <span class="st">"Username"</span>, <span class="st">"admin"</span>: false, <span class="st">"msg"</span>: <span class="st">"login_success"</span>}</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Received if failed:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"login_fail"</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="login-with-cookie" class="level3">
+<h3 class="anchored" data-anchor-id="login-with-cookie">Login with cookie</h3>
+<p>Once you have logged on successfully with your credentials, you can request a cookie from DCSS Webtiles:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sent to webtiles</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"set_login_cookie"</span>}</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Received</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>{<span class="st">"cookie"</span>: <span class="st">"Username%20123075677009872810135587785129954954508"</span>, <span class="st">"expires"</span>: <span class="dv">7</span>, <span class="st">"msg"</span>: <span class="st">"login_cookie"</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Once you have a cookie, you can send it back to log on the next time (you will receive a login_success). A new login cookie must be requested every time you use the cookie or once it expires.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sent to webtiles:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"token_login"</span>, <span class="st">"cookie"</span>: <span class="st">"Username%20123075677009872810135587785129954954508"</span>}</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Received (if the cookie was good)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>{<span class="st">"username"</span>: <span class="st">"Username"</span>, <span class="st">"admin"</span>: false, <span class="st">"msg"</span>: <span class="st">"login_success"</span>}</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Received (if the cookie was bad)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"login_fail"</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="game-ids" class="level2">
+<h2 class="anchored" data-anchor-id="game-ids">Game ids</h2>
+<p>Once the login is successful, the game will provide various welcome <code>html</code> messages, such as the banner, and will provide a <code>set_game_links</code> message resembling this:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"content"</span>: <span class="st">"Play now:</span><span class="ch">\n\n\n\n</span><span class="st">&lt;span&gt;</span><span class="ch">\n\n</span><span class="st">&lt;br&gt;</span><span class="ch">\n</span><span class="st">&lt;a href=</span><span class="ch">\"</span><span class="st">#play-dcss-web-trunk</span><span class="ch">\"</span><span class="st">&gt;</span><span class="ch">\n</span><span class="st">Play trunk&lt;/a&gt;</span><span class="ch">\n\n\n</span><span class="st">&lt;a href=</span><span class="ch">\"</span><span class="st">javascript:</span><span class="ch">\"\n</span><span class="st">class=</span><span class="ch">\"</span><span class="st">edit_rc_link</span><span class="ch">\"\n</span><span class="st">data-game_id=</span><span class="ch">\"</span><span class="st">dcss-web-trunk</span><span class="ch">\"</span><span class="st">&gt;(edit rc)&lt;/a&gt;</span><span class="ch">\n\n</span><span class="st">&lt;/span&gt;</span><span class="ch">\n\n</span><span class="st">&lt;span&gt;</span><span class="ch">\n\n</span><span class="st"> | </span><span class="ch">\n</span><span class="st">&lt;a href=</span><span class="ch">\"</span><span class="st">#play-seeded-web-trunk</span><span class="ch">\"</span><span class="st">&gt;</span><span class="ch">\n</span><span class="st">Seeded&lt;/a&gt;</span><span class="ch">\n\n\n</span><span class="st">&lt;/span&gt;</span><span class="ch">\n\n</span><span class="st">&lt;span&gt;</span><span class="ch">\n\n</span><span class="st"> | </span><span class="ch">\n</span><span class="st">&lt;a href=</span><span class="ch">\"</span><span class="st">#play-tut-web-trunk</span><span class="ch">\"</span><span class="st">&gt;</span><span class="ch">\n</span><span class="st">Tutorial&lt;/a&gt;</span><span class="ch">\n\n\n</span><span class="st">&lt;/span&gt;</span><span class="ch">\n\n</span><span class="st">&lt;span&gt;</span><span class="ch">\n\n</span><span class="st"> | </span><span class="ch">\n</span><span class="st">&lt;a href=</span><span class="ch">\"</span><span class="st">#play-sprint-web-trunk</span><span class="ch">\"</span><span class="st">&gt;</span><span class="ch">\n</span><span class="st">Sprint trunk&lt;/a&gt;</span><span class="ch">\n\n\n</span><span class="st">&lt;/span&gt;</span><span class="ch">\n\n\n</span><span class="st">"</span>, <span class="st">"msg"</span>: <span class="st">"set_game_links"</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In this <code>set_game_links</code> message, you can find the game ids that will be required to change the <code>rc file</code> and to start a game. The game ids are marked by a <code>#</code> (e.g.&nbsp;<code>#play-dcss-web-trunk</code>) where the <code>#play-</code> should be discarded (e.g.&nbsp;<code>dcss-web-trunk</code>). In the above <code>set_game_links</code> you will find four game ids: <code>dcss-web-trunk</code>, <code>seeded-web-trunk</code>, <code>tut-web-trunk</code> and <code>sprint-web-trunk</code>. Starting with DCSS 0.31, an additional one is available: <code>descent-web-trunk</code>.</p>
+</section>
+<section id="editing-the-rc-file" class="level2">
+<h2 class="anchored" data-anchor-id="editing-the-rc-file">Editing the rc file</h2>
+<p>You can read and write DCSS’s options in the <a href="http://crawl.akrasiac.org/docs/options_guide.txt">rc file</a> for each game ids.</p>
+<p>You can use the <code>get_rc</code> command to read the <code>rc file</code> of the <code>dcss-web-trunk</code> game id (as an example):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"get_rc"</span>, <span class="st">"game_id"</span>: <span class="st">"dcss-web-trunk"</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can use the <code>set_rc</code> command to write the <code>rc file</code> of the <code>dcss-web-trunk</code> game id (as an example). The entire content of the file will be replaced with the contents provided.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"set_rc"</span>, <span class="st">"game_id"</span>: <span class="st">"dcss-web-trunk"</span>, <span class="st">"contents"</span>: <span class="st">"show_more = false</span><span class="ch">\n</span><span class="st">rest_delay = -1"</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="starting-a-game" class="level2">
+<h2 class="anchored" data-anchor-id="starting-a-game">Starting a game</h2>
+<p>You can start a game with the <code>play</code> command and a <code>game_id</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sent to webtiles: </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"play"</span>, <span class="st">"game_id"</span>: <span class="st">"seeded-web-trunk"</span>}</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Received if good game_id: </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"game_started"</span>}</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Received if bad game_id: </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"go_lobby"</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Depending on the content of your <code>rc file</code> and the type of game selected, there are a few <code>ui-push</code> that may pop up. The <code>ui-push</code> are a type of pop up message that take the focus of the game.</p>
+<section id="seeded-game" class="level3">
+<h3 class="anchored" data-anchor-id="seeded-game">Seeded game</h3>
+<p>If the game was seeded (e.g.&nbsp;<code>seeded-web-trunk</code>), a <code>ui-push</code> with a <code>seed-selection</code> in the <code>type</code> key will popup with the following message:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"body"</span>:<span class="st">"Choose 0 for a random seed. [Tab]/[Shift-Tab] to cycle input focus.</span><span class="ch">\n</span><span class="st">"</span>,<span class="st">"footer"</span>:<span class="st">"</span><span class="ch">\n</span><span class="st">The seed will determine the dungeon layout, monsters, and items</span><span class="ch">\n</span><span class="st">that you discover, relative to this version of crawl. Upgrading</span><span class="ch">\n</span><span class="st">mid-game may affect seeding. (See the manual for more details.)</span><span class="ch">\n</span><span class="st">"</span>,<span class="st">"generation_id"</span>:<span class="dv">1</span>,<span class="st">"msg"</span>:<span class="st">"ui-push"</span>,<span class="st">"show_pregen_toggle"</span>:true,<span class="st">"title"</span>:<span class="st">"Play a game with a custom seed for version 0.30.1-4-g462c640d31.</span><span class="ch">\n</span><span class="st">"</span>,<span class="st">"type"</span>:<span class="st">"seed-selection"</span>,<span class="st">"ui-centred"</span>:true}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If there is a specific seed of interest (e.g.&nbsp;<code>1234</code>), the simplest way is to send these commands. It is important to wait for the <code>ui-state-sync</code> after clearing the typed seed (see <a href="./menus.html">ui and menus</a> for more info).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"input"</span>, <span class="st">"text"</span>: <span class="st">"-"</span>} <span class="co"># Clear typed seed</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"input"</span>, <span class="st">"text"</span>: <span class="st">"1234"</span>} <span class="co"># Write seed `1234`</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"input"</span>, <span class="st">"text"</span>: <span class="st">"</span><span class="ch">\t\t\t</span><span class="st"> "</span>} <span class="co"># If pre-generation is desired</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"input"</span>, <span class="st">"text"</span>: <span class="st">"</span><span class="ch">\r</span><span class="st">"</span>} <span class="co"># End the menu</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="new-game-choice" class="level3">
+<h3 class="anchored" data-anchor-id="new-game-choice">New game choice</h3>
+<p>If the options was not written in the <code>rc file</code>, the game will require you to make three choices before the game begins: <code>species</code>, <code>background</code> and <code>weapon</code>. This will come up in three subsequent <code>ui-push</code> with <code>newgame-choice</code> in the <code>type</code> key. You can simply send the relevant keys for the option (e.g.&nbsp;Minotaur Berserker with a hand axe will be <code>b</code>, <code>i</code>, <code>c</code>). It is important to wait for the <code>ui-push</code> for each of the three choices (see <a href="./menus.html">ui and menus</a> for more info).</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"input"</span>, <span class="st">"text"</span>: <span class="st">"b"</span>} <span class="co"># Minotaur</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"input"</span>, <span class="st">"text"</span>: <span class="st">"i"</span>} <span class="co"># Berserker</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"input"</span>, <span class="st">"text"</span>: <span class="st">"c"</span>} <span class="co"># Hand axe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If the seeded pre-generation option was selected, this will take a few seconds and you will received hundreds of <code>ui-state</code> messages of the <code>progress-bar</code> type as it pre-generates the dungeon.</p>
+<p>Once the game is started, it will send various messages with data such as <a href="./character.html">character data</a>, <a href="./menus.html">ui data</a>, <a href="./messages.html">msgs from the log</a> and <a href="./map.html"><code>map</code> data</a> and the game will accept any of the standard keyboard inputs.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -785,10 +903,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./sending_receiving.html" class="pagination-link" aria-label="Sending and receiving messages">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Sending and receiving messages</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./connection.html" class="pagination-link" aria-label="Connecting to DCSS Webtiles">
-        <span class="nav-page-text">Connecting to DCSS Webtiles</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./map.html" class="pagination-link" aria-label="Map data">
+        <span class="nav-page-text">Map data</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

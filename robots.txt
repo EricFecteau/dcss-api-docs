@@ -1,1 +1,1 @@
-Sitemap: https://github.com/EricFecteau/dcss-api-docs/sitemap.xml
+Sitemap: https://EricFecteau.github.io/dcss-api-docs/sitemap.xml

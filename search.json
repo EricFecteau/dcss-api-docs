@@ -1,16 +1,282 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "monsters.html",
+    "href": "monsters.html",
+    "title": "Monster data",
     "section": "",
-    "text": "About this site - test"
+    "text": "The monster data is sent along with the dungeon map data.",
+    "crumbs": [
+      "Data",
+      "Monster data"
+    ]
+  },
+  {
+    "objectID": "monsters.html#receiving-the-data",
+    "href": "monsters.html#receiving-the-data",
+    "title": "Monster data",
+    "section": "Receiving the data",
+    "text": "Receiving the data\nBelow is the same map as described in the dungeon map data, but with a Worm in the first visible row. The data dump below includes only the first two row of tiles (sent as if the monster was never seen before). The second row (starting with 'x': -2, 'y': -7) contains the 'mon' keyword in the second tile (the first visible tile) that has a monster dictionary as value. The first time a type of monster is encountered (worm in this case), the game will send various types of data (‘id’, ‘name’, ‘avghp’ and ‘threat’ being the most interesting).\n\n{'x': -2, 'y': -8, 'mf': 26}, {'mf': 26}, {'mf': 26}, {'mf': 26}, {'x': -2, 'y': -7, 'mf': 26}, {'f': 33, 'mon': {'id': 1, 'name': 'worm', 'plural': 'worms', 'type': 54, 'typedata': {'avghp': 18}, 'att': 0, 'btype': 54, 'threat': 2}, 'mf': 1, 'g': 'w', 'col': 12, 't': {'fg': 5116, 'bg': 4, 'doll': [[5116, 32]], 'mcache': None}}, {'f': 33, 'mf': 1, 'g': '.', 'col': 7, 't': {'bg': 6, 'ov': [2267]}}, {'f': 7, 'mf': 2, 'g': '#', 'col': 6, 't': {'bg': 980}}, {'mf': 26}\nAssuming the character waits one turn, here is the updated map and data once the worm moves down south-east. Note that the ‘mon’ keyword get’s updated to None at the worm’s previous location ('x': -1, 'y': -7) and it’s ID can now be found at 'x': 0, 'y': -6, where the monster appears in the image.\n\n{'msg': 'map', 'cells': [{'x': -2, 'y': -8, 'mf': 26}, {'mf': 26}, {'mf': 26}, {'mf': 26}, {'x': -2, 'y': -7, 'mf': 26}, {'mon': None, 'g': '.', 'col': 7, 't': {'fg': 0, 'doll': None, 'mcache': None}}, {'x': 2, 'y': -7, 'mf': 26}, {'x': 0, 'y': -6, 'mon': {'id': 1}, 'g': 'w', 'col': 12, 't': {'fg': 5116, 'doll': [[5116, 32]], 'mcache': None}}, {'x': 2, 'y': -6, 'mf': 26}, {'x': -4, 'y': -5, 'mf': 26}, {'x': 2, 'y': -5, 'mf': 26}, {'x': -4, 'y': -4, 'mf': 26}, {'x': 2, 'y': -4, 'mf': 26}]}",
+    "crumbs": [
+      "Data",
+      "Monster data"
+    ]
+  },
+  {
+    "objectID": "monsters.html#id-and-obfuscation",
+    "href": "monsters.html#id-and-obfuscation",
+    "title": "Monster data",
+    "section": "ID and obfuscation",
+    "text": "ID and obfuscation\nGenerally, when a new monster ID appears, it will be accompanied with a monster dictionary (as the “worm” did in the first example above). This is not universally true. In some circumstances, when a known monster moves to a new tile and a new monster, of the same type, moves into the tile that was previously occupied by the known monster that moved, a new ID will be provided without any monster dictionary. This new monster should have the same monster info as the monster that previously occupied the space. In other circumstances, when a group of similar monsters appear one after the other, only the first monster will contain the monster dictionary. Subsequent monsters will only contain the ID. The data of the highest known ID should be copied to that monster. Both of these are assumptions and may be an unsafe assumption.\nIn order to limit the knowledge that can be gained from the information transfered, some level of obfuscation is built-in to the system of monster ID. A monster will generally retain the same ID as long as it is in the field of view of the character, therefore, if a known ID appears in a location, it is safe to assume it is the same monster as seen previously (e.g. the worm above moves from one tile to the other and retains the same ID). If the monster goes out of the field of view of the character, it will likely come back with a new ID. Therefore, tracking ID is not correct as some monsters may have simply changed ID.",
+    "crumbs": [
+      "Data",
+      "Monster data"
+    ]
+  },
+  {
+    "objectID": "monsters.html#invisible-monsters",
+    "href": "monsters.html#invisible-monsters",
+    "title": "Monster data",
+    "section": "Invisible monsters",
+    "text": "Invisible monsters\nAssuming the character can’t see invisible, when a monster goes invisible, the mon keyword will be updated to None. Thankfully, since the monster will occasionally create a disturbance, it is possible to find the location of invisible monsters by looking for the { glyph (under the g data in the dictionary for each tile).",
+    "crumbs": [
+      "Data",
+      "Monster data"
+    ]
+  },
+  {
+    "objectID": "login_games.html",
+    "href": "login_games.html",
+    "title": "Lobby commands",
+    "section": "",
+    "text": "Once the {\"msg\": \"lobby_complete\"} JSON message is received, DCSS Webtiles is ready for commands. There are various things that can be done at this point.",
+    "crumbs": [
+      "API",
+      "Login and games"
+    ]
+  },
+  {
+    "objectID": "login_games.html#logging-in",
+    "href": "login_games.html#logging-in",
+    "title": "Lobby commands",
+    "section": "Logging in",
+    "text": "Logging in\nYou can login to the DCSS Webtiles with credentials (username and password), or with a cookie (if you have collected one previously).\n\nLogin with credential\nThe first time you sign in, you must sign in with credentials (username and password). When sending the following (where this particular user is called Username and the password for that user is Password), you will receive a login_success message, if successful and a login_fail, if unsuccessful.\n# Sent to webtiles: \n{\"msg\": \"login\", \"username\": \"Username\", \"password\": \"Password\"}\n\n# Received if successful:\n{\"username\": \"Username\", \"admin\": false, \"msg\": \"login_success\"}\n\n# Received if failed:\n{\"msg\": \"login_fail\"}\n\n\nLogin with cookie\nOnce you have logged on successfully with your credentials, you can request a cookie from DCSS Webtiles:\n# Sent to webtiles\n{\"msg\": \"set_login_cookie\"}\n\n# Received\n{\"cookie\": \"Username%20123075677009872810135587785129954954508\", \"expires\": 7, \"msg\": \"login_cookie\"}\nOnce you have a cookie, you can send it back to log on the next time (you will receive a login_success). A new login cookie must be requested every time you use the cookie or once it expires.\n# Sent to webtiles:\n{\"msg\": \"token_login\", \"cookie\": \"Username%20123075677009872810135587785129954954508\"}\n\n# Received (if the cookie was good)\n{\"username\": \"Username\", \"admin\": false, \"msg\": \"login_success\"}\n\n# Received (if the cookie was bad)\n{\"msg\": \"login_fail\"}",
+    "crumbs": [
+      "API",
+      "Login and games"
+    ]
+  },
+  {
+    "objectID": "login_games.html#game-ids",
+    "href": "login_games.html#game-ids",
+    "title": "Lobby commands",
+    "section": "Game ids",
+    "text": "Game ids\nOnce the login is successful, the game will provide various welcome html messages, such as the banner, and will provide a set_game_links message resembling this:\n{\"content\": \"Play now:\\n\\n\\n\\n&lt;span&gt;\\n\\n&lt;br&gt;\\n&lt;a href=\\\"#play-dcss-web-trunk\\\"&gt;\\nPlay trunk&lt;/a&gt;\\n\\n\\n&lt;a href=\\\"javascript:\\\"\\nclass=\\\"edit_rc_link\\\"\\ndata-game_id=\\\"dcss-web-trunk\\\"&gt;(edit rc)&lt;/a&gt;\\n\\n&lt;/span&gt;\\n\\n&lt;span&gt;\\n\\n | \\n&lt;a href=\\\"#play-seeded-web-trunk\\\"&gt;\\nSeeded&lt;/a&gt;\\n\\n\\n&lt;/span&gt;\\n\\n&lt;span&gt;\\n\\n | \\n&lt;a href=\\\"#play-tut-web-trunk\\\"&gt;\\nTutorial&lt;/a&gt;\\n\\n\\n&lt;/span&gt;\\n\\n&lt;span&gt;\\n\\n | \\n&lt;a href=\\\"#play-sprint-web-trunk\\\"&gt;\\nSprint trunk&lt;/a&gt;\\n\\n\\n&lt;/span&gt;\\n\\n\\n\", \"msg\": \"set_game_links\"}\nIn this set_game_links message, you can find the game ids that will be required to change the rc file and to start a game. The game ids are marked by a # (e.g. #play-dcss-web-trunk) where the #play- should be discarded (e.g. dcss-web-trunk). In the above set_game_links you will find four game ids: dcss-web-trunk, seeded-web-trunk, tut-web-trunk and sprint-web-trunk. Starting with DCSS 0.31, an additional one is available: descent-web-trunk.",
+    "crumbs": [
+      "API",
+      "Login and games"
+    ]
+  },
+  {
+    "objectID": "login_games.html#editing-the-rc-file",
+    "href": "login_games.html#editing-the-rc-file",
+    "title": "Lobby commands",
+    "section": "Editing the rc file",
+    "text": "Editing the rc file\nYou can read and write DCSS’s options in the rc file for each game ids.\nYou can use the get_rc command to read the rc file of the dcss-web-trunk game id (as an example):\n{\"msg\": \"get_rc\", \"game_id\": \"dcss-web-trunk\"}\nYou can use the set_rc command to write the rc file of the dcss-web-trunk game id (as an example). The entire content of the file will be replaced with the contents provided.\n{\"msg\": \"set_rc\", \"game_id\": \"dcss-web-trunk\", \"contents\": \"show_more = false\\nrest_delay = -1\"}",
+    "crumbs": [
+      "API",
+      "Login and games"
+    ]
+  },
+  {
+    "objectID": "login_games.html#starting-a-game",
+    "href": "login_games.html#starting-a-game",
+    "title": "Lobby commands",
+    "section": "Starting a game",
+    "text": "Starting a game\nYou can start a game with the play command and a game_id:\n# Sent to webtiles: \n{\"msg\": \"play\", \"game_id\": \"seeded-web-trunk\"}\n\n# Received if good game_id: \n{\"msg\": \"game_started\"}\n\n# Received if bad game_id: \n{\"msg\": \"go_lobby\"}\nDepending on the content of your rc file and the type of game selected, there are a few ui-push that may pop up. The ui-push are a type of pop up message that take the focus of the game.\n\nSeeded game\nIf the game was seeded (e.g. seeded-web-trunk), a ui-push with a seed-selection in the type key will popup with the following message:\n{\"body\":\"Choose 0 for a random seed. [Tab]/[Shift-Tab] to cycle input focus.\\n\",\"footer\":\"\\nThe seed will determine the dungeon layout, monsters, and items\\nthat you discover, relative to this version of crawl. Upgrading\\nmid-game may affect seeding. (See the manual for more details.)\\n\",\"generation_id\":1,\"msg\":\"ui-push\",\"show_pregen_toggle\":true,\"title\":\"Play a game with a custom seed for version 0.30.1-4-g462c640d31.\\n\",\"type\":\"seed-selection\",\"ui-centred\":true}\nIf there is a specific seed of interest (e.g. 1234), the simplest way is to send these commands. It is important to wait for the ui-state-sync after clearing the typed seed (see ui and menus for more info).\n{\"msg\": \"input\", \"text\": \"-\"} # Clear typed seed\n{\"msg\": \"input\", \"text\": \"1234\"} # Write seed `1234`\n{\"msg\": \"input\", \"text\": \"\\t\\t\\t \"} # If pre-generation is desired\n{\"msg\": \"input\", \"text\": \"\\r\"} # End the menu\n\n\nNew game choice\nIf the options was not written in the rc file, the game will require you to make three choices before the game begins: species, background and weapon. This will come up in three subsequent ui-push with newgame-choice in the type key. You can simply send the relevant keys for the option (e.g. Minotaur Berserker with a hand axe will be b, i, c). It is important to wait for the ui-push for each of the three choices (see ui and menus for more info).\n{\"msg\": \"input\", \"text\": \"b\"} # Minotaur\n{\"msg\": \"input\", \"text\": \"i\"} # Berserker\n{\"msg\": \"input\", \"text\": \"c\"} # Hand axe\nIf the seeded pre-generation option was selected, this will take a few seconds and you will received hundreds of ui-state messages of the progress-bar type as it pre-generates the dungeon.\nOnce the game is started, it will send various messages with data such as character data, ui data, msgs from the log and map data and the game will accept any of the standard keyboard inputs.",
+    "crumbs": [
+      "API",
+      "Login and games"
+    ]
+  },
+  {
+    "objectID": "character.html",
+    "href": "character.html",
+    "title": "Character data",
+    "section": "",
+    "text": "TODO",
+    "crumbs": [
+      "Data",
+      "Character data"
+    ]
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Dcss-api-docs",
+    "title": "DCSS Webtile API Documentation",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "Connecting to DCSS Webtiles\nSending and receiving data\nCommands for the lobby\nStarting a game",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#table-of-contents",
+    "href": "index.html#table-of-contents",
+    "title": "DCSS Webtile API Documentation",
+    "section": "",
+    "text": "Connecting to DCSS Webtiles\nSending and receiving data\nCommands for the lobby\nStarting a game",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "connection.html",
+    "href": "connection.html",
+    "title": "Connecting to DCSS Webtiles",
+    "section": "",
+    "text": "DCSS Webtiles uses websocket to communicate between the client and the DCSS server.",
+    "crumbs": [
+      "API",
+      "Connecting to DCSS Webtiles"
+    ]
+  },
+  {
+    "objectID": "connection.html#connecting-to-dcss-webtiles-through-websocket",
+    "href": "connection.html#connecting-to-dcss-webtiles-through-websocket",
+    "title": "Connecting to DCSS Webtiles",
+    "section": "Connecting to DCSS webtiles through websocket",
+    "text": "Connecting to DCSS webtiles through websocket\nYou can connect to the websocket of the DCSS webtiles using tungstenite for Rust or websockets for Python. The example below assumes a DCSS webtiles on ‘localhost:8080’. Running it will provide you some ZLIB compressed data.\nFor Rust:\n// URL to DCSS Webtiles\nlet url = \"ws://localhost:8080/socket\";\n\n// Parse with url crate\nlet parsed_url = url::Url::parse(url).unwrap();\n\n// Connect with tungstenite crate\nlet (mut socket, _response) = tungstenite::connect(parsed_url).unwrap();\n\n// Read the socket until something is received\nlet mut compressed_msg = socket.read().unwrap().into_data();\nFor Python:\nimport asyncio\nimport websockets\n\n# URL to DCSS Webtiles\nws_link = \"ws://localhost:8080/socket\"\n\nasync def connect():\n    # Connect with websockets\n    connection = await websockets.connect(ws_link)\n\n    # Read the socket\n    received = await connection.recv()\n\n    return received\n\ncompressed_msg = asyncio.run(connect())\nThe compressed_msg variable in the example above will likely contain [170, 86, 202, 45, 78, 47, 86, 178, 138, 174, 6, 49, 148, 172, 20, 148, 10, 50, 243, 210, 149, 106, 99, 107, 1, 0] for Rust or b'\\xaaV\\xca-N/V\\xb2\\x8a\\xae\\x061\\x94\\xac\\x14\\x94\\n2\\xf3\\xd2\\x95jck\\x01\\x00' for Python.",
+    "crumbs": [
+      "API",
+      "Connecting to DCSS Webtiles"
+    ]
+  },
+  {
+    "objectID": "connection.html#decoding-the-received-data",
+    "href": "connection.html#decoding-the-received-data",
+    "title": "Connecting to DCSS Webtiles",
+    "section": "Decoding the received data",
+    "text": "Decoding the received data\nNow that data has been received, it can be decoded. Before decoding the data, the 4 bytes removed by DCSS (prior to sending to the client) must be re-added ([0u8, 0, 255, 255] for Rust and b\"\\x00\\x00\\xFF\\xFF\" for Python). Once added, the data can be decoded with flate2 for Rust and zlib for Python. The the data can be turned into a json object with serde_json for Rust and json for Python.\nFor Rust:\n// Append removed bytes\ncompressed_msg.append(&mut vec![0u8, 0, 255, 255]);\n\n// Create decompressor (https://github.com/rust-lang/flate2-rs/issues/312)\nlet wbits = 15; // Windows bits fixed (goes to -15 in flate2 because of zlib_header = false)\nlet mut decompressor = flate2::Decompress::new_with_window_bits(false, wbits);\n\nlet bufsize = 1024 * 1024; // Needs a buffer size to work (1mb)\nlet mut decompressed_bytes = Vec::with_capacity(bufsize);\n\n// Use the decompressor to decompress the data\ndecompressor\n    .decompress_vec(\n        &compressed_msg[..],\n        &mut decompressed_bytes,\n        flate2::FlushDecompress::Sync,\n    )\n    .unwrap();\n\n// Convert to str\nlet json_str = std::str::from_utf8(&decompressed_bytes).unwrap();\n\n// Convert to json\nlet json_data: serde_json::Value = serde_json::from_str(json_str).unwrap();\nFor Python:\nimport zlib\nimport json\n\n# Data from connection example\nfull_compressed_data = compressed_msg + bytearray(b\"\\x00\\x00\\xFF\\xFF\")\n\n# Decompress with zlib\n_decompressobj = zlib.decompressobj(-zlib.MAX_WBITS)\ndecompressed_data = _decompressobj.decompress(full_compressed_data)\n\n# Jsonify the data\njson_data = json.loads(decompressed_data)\nThe json_data variable in the example above will likely contain {'msgs': [{'msg': 'ping'}]} as a serde_json Value object for Rust and as a json object for Python.",
+    "crumbs": [
+      "API",
+      "Connecting to DCSS Webtiles"
+    ]
+  },
+  {
+    "objectID": "connection.html#sending-data-to-dcss-webtiles",
+    "href": "connection.html#sending-data-to-dcss-webtiles",
+    "title": "Connecting to DCSS Webtiles",
+    "section": "Sending data to DCSS webtiles",
+    "text": "Sending data to DCSS webtiles\nSending data to DCSS is simpler than receiving it, but the correct objects must be sent. The example below connects to the webtiles and sends a login command for a user and a play command for DCSS. This assumes that a user called Username, that has a password equal to Password, exists on localhost:8080. It also assumes a game id of dcss-web-trunk is available.\nFor Rust:\n// URL to DCSS Webtiles\nlet url = \"ws://localhost:8080/socket\";\n\n// Parse with url crate\nlet parsed_url = url::Url::parse(url).unwrap();\n\n// Connect with tungstenite crate\nlet (mut socket, _response) = tungstenite::connect(parsed_url).unwrap();\n\n// Data packets to be sent\nlet message1 = serde_json::json!({\"msg\": \"login\", \"username\": \"Username\", \"password\": \"Password\"});\nlet message2 = serde_json::json!({\"msg\": \"play\", \"game_id\": \"dcss-web-trunk\"});\n\n// Send messages\nsocket.send(tungstenite::Message::Text(message1.to_string())).unwrap();\nsocket.send(tungstenite::Message::Text(message2.to_string())).unwrap();\n\n// Wait for 5 seconds\nstd::thread::sleep(std::time::Duration::from_millis(5000));\nFor Python:\nimport asyncio\nimport websockets\nimport json\nimport time\n\nws_link = \"ws://localhost:8080/socket\"\nmessage1 = {\"msg\": \"login\", \"username\": \"Username\", \"password\": \"Password\"}\nmessage2 = {'msg': 'play', 'game_id': 'dcss-web-trunk'}\n\nasync def connect_and_send():\n    # Connect\n    connection = await websockets.connect(ws_link)\n\n    # Send both messages\n    await connection.send(json.dumps(message1))\n    await connection.send(json.dumps(message2))\n\n    time.sleep(5)\n\nasyncio.run(connect_and_send())\nIf you watch on http://localhost:8080/#lobby, you will see for 5 seconds the user named Username playing a game of dcss-web-trunk.\nSee what can be sent and what will be received on the next page.",
+    "crumbs": [
+      "API",
+      "Connecting to DCSS Webtiles"
+    ]
+  },
+  {
+    "objectID": "connection.html#connecting-to-a-public-dcss-webtiles-server",
+    "href": "connection.html#connecting-to-a-public-dcss-webtiles-server",
+    "title": "Connecting to DCSS Webtiles",
+    "section": "Connecting to a public DCSS Webtiles server",
+    "text": "Connecting to a public DCSS Webtiles server\nIt is possible to send and receive commands (e.g. play the game) at an incredibly fast pace, but full speed should be restricted to local games only (e.g. running DCSS Webtiles server on your local computer or a server you own). When connecting to a public server, limit your play speed to a maximum of one sent command per 100 milliseconds. Follow any other restrictions from the server (e.g. no bot chat interaction).",
+    "crumbs": [
+      "API",
+      "Connecting to DCSS Webtiles"
+    ]
+  },
+  {
+    "objectID": "connection.html#websocket-secure-wss-connection",
+    "href": "connection.html#websocket-secure-wss-connection",
+    "title": "Connecting to DCSS Webtiles",
+    "section": "Websocket Secure (wss) connection",
+    "text": "Websocket Secure (wss) connection\nDCSS Webtiles can have secure connections enabled, especially public servers. You can tell if a link is secured if the websocket link starts with “wss” instead of “ws”. In Rust, no change in code is necessary, but the native-tls-vendored feature flag must be enabled for tungstenite: tungstenite = { version = \"0.21\", features = [\"native-tls-vendored\"] }. In python, the websockets.connect(ws_link) code must become websockets.connect(ws_link, ssl = True).",
+    "crumbs": [
+      "API",
+      "Connecting to DCSS Webtiles"
+    ]
+  },
+  {
+    "objectID": "sending_receiving.html",
+    "href": "sending_receiving.html",
+    "title": "Sending and receiving messages",
+    "section": "",
+    "text": "Once connected to the DCSS Webtiles, the game will send various messages and will expect some interactions.",
+    "crumbs": [
+      "API",
+      "Sending and receiving messages"
+    ]
+  },
+  {
+    "objectID": "sending_receiving.html#receiving-messages",
+    "href": "sending_receiving.html#receiving-messages",
+    "title": "Sending and receiving messages",
+    "section": "Receiving messages",
+    "text": "Receiving messages\nThe first few messages that are received, before the user sends any commands, are the following:\n{\"msg\": \"ping\"}\n{\"msg\": \"lobby_clear\"}\n{\"msg\": \"lobby_complete\"}\nAll messages received from DCSS webtiles will have the msg dictionary key. This will indicate what type of message it is. The above three are simply information about the connection and the state of the lobby. Other messages will have other keys for additional information. Once the lobby_complete message is received, DCSS is ready to receive the next commands. It will not send anything until a command is received.",
+    "crumbs": [
+      "API",
+      "Sending and receiving messages"
+    ]
+  },
+  {
+    "objectID": "sending_receiving.html#sending-messages",
+    "href": "sending_receiving.html#sending-messages",
+    "title": "Sending and receiving messages",
+    "section": "Sending messages",
+    "text": "Sending messages\nAll messages sent to DCSS Webtiles have to be in the JSON format. The most basic form are simple key presses, a “msg” key of type “input”, with a “text” key with the specified key(s).\nFor example, this will send the . (wait) key to DCSS Webtiles:\n{\"msg\": \"input\", \"text\": \".\"}\nIt is also possible to send multiple keys, one after the other. This will send yes to DCSS Webtiles:\n{\"msg\": \"input\", \"text\": \"yes\"}\nThere are also multiple ways to send some of the commands. For example, both of these will send the “tab” command:\n{\"msg\": \"input\", \"text\": \"\\t\"}\n{\"msg\": \"key\", \"keycode\": 9}\nHere is a table representing the keycodes for each special key. The dcss-api column is the way to address them while using dcss-api – (webtile.write_key(\"key_esc\")).\n\n\n\nKey\ndcss-api\nJSON message\n\n\n\n\nCTRL + A\n“key_ctrl_a”\n{“msg”: “key”, “keycode”: 1}\n\n\nCTRL + B\n“key_ctrl_b”\n{“msg”: “key”, “keycode”: 2}\n\n\nCTRL + C\n“key_ctrl_c”\n{“msg”: “key”, “keycode”: 3}\n\n\nCTRL + D\n“key_ctrl_d”\n{“msg”: “key”, “keycode”: 4}\n\n\nCTRL + E\n“key_ctrl_e”\n{“msg”: “key”, “keycode”: 5}\n\n\nCTRL + F\n“key_ctrl_f”\n{“msg”: “key”, “keycode”: 6}\n\n\nCTRL + G\n“key_ctrl_g”\n{“msg”: “key”, “keycode”: 7}\n\n\nCTRL + H\n“key_ctrl_h”\n{“msg”: “key”, “keycode”: 8}\n\n\nCTRL + I\n“key_ctrl_i”\n{“msg”: “key”, “keycode”: 9}\n\n\nCTRL + J\n“key_ctrl_j”\n{“msg”: “key”, “keycode”: 10}\n\n\nCTRL + K\n“key_ctrl_k”\n{“msg”: “key”, “keycode”: 11}\n\n\nCTRL + L\n“key_ctrl_l”\n{“msg”: “key”, “keycode”: 12}\n\n\nCTRL + M\n“key_ctrl_m”\n{“msg”: “key”, “keycode”: 13}\n\n\nCTRL + N\n“key_ctrl_n”\n{“msg”: “key”, “keycode”: 14}\n\n\nCTRL + O\n“key_ctrl_o”\n{“msg”: “key”, “keycode”: 15}\n\n\nCTRL + P\n“key_ctrl_p”\n{“msg”: “key”, “keycode”: 16}\n\n\nCTRL + Q\n“key_ctrl_q”\n{“msg”: “key”, “keycode”: 17}\n\n\nCTRL + R\n“key_ctrl_r”\n{“msg”: “key”, “keycode”: 18}\n\n\nCTRL + S\n“key_ctrl_s”\n{“msg”: “key”, “keycode”: 19}\n\n\nCTRL + T\n“key_ctrl_t”\n{“msg”: “key”, “keycode”: 20}\n\n\nCTRL + U\n“key_ctrl_u”\n{“msg”: “key”, “keycode”: 21}\n\n\nCTRL + V\n“key_ctrl_v”\n{“msg”: “key”, “keycode”: 22}\n\n\nCTRL + W\n“key_ctrl_w”\n{“msg”: “key”, “keycode”: 23}\n\n\nCTRL + X\n“key_ctrl_x”\n{“msg”: “key”, “keycode”: 24}\n\n\nCTRL + Y\n“key_ctrl_y”\n{“msg”: “key”, “keycode”: 25}\n\n\nCTRL + Z\n“key_ctrl_z”\n{“msg”: “key”, “keycode”: 26}\n\n\nesc\n“key_esc”\n{“msg”: “key”, “keycode”: 27}\n\n\ntab\n“key_tab”\n{“msg”: “key”, “keycode”: 9}\n\n\nNorth\n“key_dir_n”\n{“msg”: “input”, “text”: “8”}\n\n\nNorth East\n“key_dir_ne”\n{“msg”: “input”, “text”: “9”}\n\n\nEst\n“key_dir_e”\n{“msg”: “input”, “text”: “6”}\n\n\nSouth East\n“key_dir_se”\n{“msg”: “input”, “text”: “3”}\n\n\nSouth\n“key_dir_s”\n{“msg”: “input”, “text”: “2”}\n\n\nSouth West\n“key_dir_sw”\n{“msg”: “input”, “text”: “1”}\n\n\nWest\n“key_dir_w”\n{“msg”: “input”, “text”: “4”}\n\n\nNorth West\n“key_dir_nw”\n{“msg”: “input”, “text”: “7”}\n\n\nDown stairs\n“key_stair_down”\n{“msg”: “input”, “text”: “&gt;”}\n\n\nUp stairs\n“key_stair_up”\n{“msg”: “input”, “text”: “&lt;”}\n\n\nenter\n“key_enter”\n{“msg”: “input”, “text”: “}\n\n\n\nThere are a few special JSON messages that are accepted by the game, especially to navigate the lobby. The login and games page go over many of them in more details. Other ones, especially the admin and user commands, can be found here in the DCSS Webtiles code.",
+    "crumbs": [
+      "API",
+      "Sending and receiving messages"
+    ]
+  },
+  {
+    "objectID": "menus.html",
+    "href": "menus.html",
+    "title": "UI and menu data",
+    "section": "",
+    "text": "TODO",
+    "crumbs": [
+      "Data",
+      "Menu and UI data"
+    ]
+  },
+  {
+    "objectID": "messages.html",
+    "href": "messages.html",
+    "title": "Message data",
+    "section": "",
+    "text": "TODO"
+  },
+  {
+    "objectID": "map.html",
+    "href": "map.html",
+    "title": "Map data",
+    "section": "",
+    "text": "The dungeon map data contains both the tile information and the monster information. The monster data is covered here.",
+    "crumbs": [
+      "Data",
+      "Map data"
+    ]
+  },
+  {
+    "objectID": "map.html#structure-of-the-map-data",
+    "href": "map.html#structure-of-the-map-data",
+    "title": "Map data",
+    "section": "Structure of the map data",
+    "text": "Structure of the map data\nThe tiles data sent is sent with the least amount of repeated information. Below is a dump of the map information according to the image. This dump is extremely small, compared to a normal map, because it contains a custom scenario for demonstration purpose (see dcss-scenario-builder for more info).\n\n{\"msg\":\"map\",\"clear\":true,\"player_on_level\":true,\"vgrdc\":{\"x\":0,\"y\":0},\"cells\":[{\"x\":-1,\"y\":-8,\"mf\":26},{\"mf\":26},{\"mf\":26},{\"mf\":26},{\"x\":-1,\"y\":-7,\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1993,\"flv\":{\"f\":3,\"s\":217}}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":2,\"ov\":[2322]}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":7,\"ov\":[2323]}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1996,\"flv\":{\"f\":7,\"s\":36}}},{\"x\":-1,\"y\":-6,\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1997,\"flv\":{\"f\":4,\"s\":135}}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":6,\"ov\":[2317]}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":3,\"ov\":[2321]}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1991,\"flv\":{\"f\":3,\"s\":153}}},{\"x\":-1,\"y\":-5,\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1992,\"flv\":{\"f\":7,\"s\":162}}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":8,\"ov\":[2317]}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":4,\"ov\":[2321]}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1993,\"flv\":{\"f\":8,\"s\":168}}},{\"x\":-1,\"y\":-4,\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1997,\"flv\":{\"f\":6,\"s\":40}}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":6,\"ov\":[2317]}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":5,\"ov\":[2321]}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1992,\"flv\":{\"f\":8,\"s\":161}}},{\"x\":-1,\"y\":-3,\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1991,\"flv\":{\"f\":3,\"s\":148}}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":7,\"ov\":[2317]}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":6,\"ov\":[2321]}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1997,\"flv\":{\"f\":5,\"s\":185}}},{\"mf\":26},{\"x\":-1,\"y\":-2,\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1998,\"flv\":{\"f\":5,\"s\":44}}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":6,\"ov\":[2317]}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":5,\"ov\":[2321]}},{\"f\":1,\"mf\":5,\"g\":\"+\",\"col\":7,\"t\":{\"bg\":2386,\"flv\":{\"f\":6}}},{\"mf\":26},{\"x\":-1,\"y\":-1,\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1993,\"flv\":{\"f\":3,\"s\":74}}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":3,\"ov\":[2317]}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":5,\"ov\":[2321]}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1993,\"flv\":{\"f\":2,\"s\":25}}},{\"mf\":26},{\"x\":-1,\"y\":0,\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1994,\"flv\":{\"f\":8,\"s\":31}}},{\"f\":33,\"mf\":1,\"g\":\"@\",\"col\":87,\"t\":{\"fg\":530691,\"bg\":5,\"doll\":[[6602,32],[6562,32],[6681,32],[6732,32],[7367,32],[7084,32]],\"mcache\":null,\"ov\":[2317]}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":7,\"ov\":[2321]}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1991,\"flv\":{\"f\":4,\"s\":2}}},{\"x\":-1,\"y\":1,\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1998,\"flv\":{\"f\":4,\"s\":91}}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1991,\"flv\":{\"f\":5,\"s\":244}}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1991,\"flv\":{\"f\":8,\"s\":148}}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1995,\"flv\":{\"f\":7,\"s\":33}}}]}\nThe following is an exploration of the data contained in the cells key seen above.\n\nmf information\nEach cell will provide an ‘mf’ number. Here is the concordance list. The missing keys are likely no longer used (related mostly to monster and player info).\n1: \"floor\",\n2: \"wall\",\n3: \"magic mapping floor\",\n4: \"magic mapping wall\",\n5: \"door\",\n6: \"item\",\n11: \"plant\",\n12: \"up stairs\"\n13: \"down stairs\"\n14: \"branch stairs (e.g. temple)\"\n15: \"feature (e.g. altar)\"\n16: \"shallow water\"\n17: \"lava\"\n18: \"trap\"\n22: \"deep water\"\n23: \"portal (e.g. sewer entrance)\"\n24: \"portal (up or down)\"\n25: \"portal (up or down)\"\n26: \"unexplored\"\n\n\nData structure with x and y\nThe cells item value is a list of tiles. Only the first tile in a row, or the first tile after a series of “empty cells” in a row (cells not sent), will contain the x and y value. For example, the first cell in the list contains 'x': -1 and 'y': -8. On the image, assuming the character is at 'x': 0 and 'y': 0 and that x negative is left and x positive is right, and that y negative is up and y positive is down, this cell is out of bound (labelled 1 in the image). This cell contains 'mf': 26\" as it is unexplored ({\"x\": -1,\"y\": -8,\"mf\": 26}). This data is followed by 3 cells without the x and y value (labelled 2, 3 and 4 in the image), also all unexplored ({\"mf\": 26}, {\"mf\": 26}, {\"mf\": 26}). All known tiles will always be bordered by either unexplored tiles or a wall, this is the reason why no data is provided for the “tile” labelled 5, since there is no way of reaching this tile from the known tiles. Once a row is complete, the next item in the list will contain the x and y value for the next row ({\"x\": -1, \"y\": -7, \"f\": 5, \"mf\":2, \"g\": \"#\", \"col\": 3, \"t\": {\"bg\": 1993, \"flv\": {\"f\": 2, \"s\": 217}}}). This is the top left wall (\"mf\": 2) right under the 1. The other info (f, g, col and t) sent with this tile provides data to javascript in order to properly display this tile in webtiles. Some of this info can be useful for understanding the game.\n\n\nGlyph\nLooking at the g data (glyph) in the known tiles will provide the console character for each tile. For example, a “floor” will have . and a “wall” will have #. The character will be labled as @. A particularly useful glyph is the { glyph that shows the disturbance left by an invisible monsters.",
+    "crumbs": [
+      "Data",
+      "Map data"
+    ]
+  },
+  {
+    "objectID": "map.html#updating-the-map-data",
+    "href": "map.html#updating-the-map-data",
+    "title": "Map data",
+    "section": "Updating the map data",
+    "text": "Updating the map data\nDuring the processing of the game, the map data gets updated very frequently, but only near tiles (or tiles that update) get re-sent to the client. Below is an example of the updated data sent if the character moves up and to the right (x: 1 and y: -1). In the screenshot, this is moving towards the closed door.\n\n{\"msg\":\"map\",\"vgrdc\":{\"x\":1,\"y\":-1},\"cells\":[{\"x\":-1,\"y\":-9,\"mf\":26},{\"mf\":26},{\"mf\":26},{\"mf\":26},{\"mf\":26},{\"x\":-1,\"y\":-8,\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1994,\"flv\":{\"f\":4,\"s\":174}}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":4,\"ov\":[2322]}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":2}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":5}},{\"mf\":26},{\"x\":0,\"y\":-7,\"t\":{\"ov\":[2317]}},{\"x\":3,\"y\":-7,\"mf\":26},{\"x\":3,\"y\":-3,\"mf\":26},{\"x\":3,\"y\":-2,\"mf\":26},{\"x\":1,\"y\":-1,\"g\":\"@\",\"col\":87,\"t\":{\"fg\":530691,\"doll\":[[6602,32],[6562,32],[6681,32],[6732,32],[7367,32],[7084,32]],\"mcache\":null}},{\"x\":3,\"y\":-1,\"mf\":26},{\"x\":0,\"y\":0,\"g\":\".\",\"col\":2,\"t\":{\"fg\":0,\"doll\":null,\"mcache\":null}}]}\nThe data shows that the character ('g': '@') is now located at 'x': 1 and 'y': -1 and where the character used to be ('x': 0 and 'y': 0) a floor ('g': '.') is now present. The tiles that were labled 1 to 5 now have been re-sent with actual data. 1 (\"x\": -1, \"y\": -8) is now a wall (\"mf\": 2), 2, 3 and 4 are now floors (\"mf\": 1) and 5, now accessible from 4, is now provided as an “unexplored” tile (\"mf\": 26). A new row of unknown tiles (above the tiles labeled 1 to 5) is now also provided {\"x\":-1,\"y\":-9,\"mf\":26},{\"mf\":26},{\"mf\":26},{\"mf\":26},{\"mf\":26}.\nIf the character opens the adjacent door (north-east), the character will not move, but additional tiles will be revealed.\n\n{\"msg\":\"map\",\"cells\":[{\"x\":-1,\"y\":-9,\"mf\":26},{\"mf\":26},{\"mf\":26},{\"mf\":26},{\"mf\":26},{\"x\":3,\"y\":-8,\"mf\":26},{\"x\":3,\"y\":-7,\"mf\":26},{\"x\":3,\"y\":-3,\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1993,\"flv\":{\"f\":4,\"s\":214}}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1995,\"flv\":{\"f\":2,\"s\":82}}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1992,\"flv\":{\"f\":6,\"s\":250}}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1994,\"flv\":{\"f\":2,\"s\":223}}},{\"x\":1,\"y\":-2,\"t\":{\"ov\":[2320]}},{\"f\":34,\"g\":\"'\",\"t\":{\"bg\":2393,\"ov\":[2319]}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":5,\"ov\":[2319]}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":6,\"ov\":[2319]}},{\"f\":33,\"mf\":1,\"g\":\".\",\"col\":2,\"t\":{\"bg\":5,\"ov\":[2319,2321]}},{\"f\":5,\"mf\":2,\"g\":\"#\",\"col\":3,\"t\":{\"bg\":1993,\"flv\":{\"f\":7,\"s\":166}}},{\"x\":1,\"y\":-1,\"t\":{\"ov\":[2323]}},{\"x\":3,\"y\":-1,\"mf\":26},{\"mf\":26},{\"mf\":26},{\"mf\":26}]}\nThe data for these tiles (and various other tiles) gets sent through the websocket connection. You can see the new tyles starting at {\"x\":3,\"y\":-7,\"mf\":26}.",
+    "crumbs": [
+      "Data",
+      "Map data"
+    ]
   }
 ]

@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/EricFecteau/dcss-api-docs/about.html</loc>
-    <lastmod>2023-09-25T01:01:03.161Z</lastmod>
+    <loc>https://EricFecteau.github.io/dcss-api-docs/monsters.html</loc>
+    <lastmod>2024-06-15T14:31:32.570Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/EricFecteau/dcss-api-docs/index.html</loc>
-    <lastmod>2023-09-25T01:01:02.529Z</lastmod>
+    <loc>https://EricFecteau.github.io/dcss-api-docs/login_games.html</loc>
+    <lastmod>2024-06-15T14:31:32.570Z</lastmod>
+  </url>
+  <url>
+    <loc>https://EricFecteau.github.io/dcss-api-docs/character.html</loc>
+    <lastmod>2024-06-15T14:31:32.566Z</lastmod>
+  </url>
+  <url>
+    <loc>https://EricFecteau.github.io/dcss-api-docs/index.html</loc>
+    <lastmod>2024-06-15T14:31:32.570Z</lastmod>
+  </url>
+  <url>
+    <loc>https://EricFecteau.github.io/dcss-api-docs/connection.html</loc>
+    <lastmod>2024-06-15T14:31:32.566Z</lastmod>
+  </url>
+  <url>
+    <loc>https://EricFecteau.github.io/dcss-api-docs/sending_receiving.html</loc>
+    <lastmod>2024-06-15T14:31:32.570Z</lastmod>
+  </url>
+  <url>
+    <loc>https://EricFecteau.github.io/dcss-api-docs/menus.html</loc>
+    <lastmod>2024-06-15T14:31:32.570Z</lastmod>
+  </url>
+  <url>
+    <loc>https://EricFecteau.github.io/dcss-api-docs/messages.html</loc>
+    <lastmod>2024-06-15T14:31:32.570Z</lastmod>
+  </url>
+  <url>
+    <loc>https://EricFecteau.github.io/dcss-api-docs/map.html</loc>
+    <lastmod>2024-06-15T14:31:32.570Z</lastmod>
   </url>
 </urlset>

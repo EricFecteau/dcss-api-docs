@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>DCSS Website API Docs - DCSS Webtile API Documentation</title>
+<title>DCSS Website API Docs - Monster data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./connection.html" rel="next">
+<link href="./character.html" rel="next">
+<link href="./map.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -83,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./map.html">Data</a></li><li class="breadcrumb-item"><a href="./monsters.html">Monster data</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -113,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
@@ -163,7 +198,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./monsters.html" class="sidebar-item-text sidebar-link">
+  <a href="./monsters.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Monster data</span></a>
   </div>
 </li>
@@ -191,16 +226,18 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#table-of-contents" id="toc-table-of-contents" class="nav-link active" data-scroll-target="#table-of-contents">Table of contents:</a></li>
+  <li><a href="#receiving-the-data" id="toc-receiving-the-data" class="nav-link active" data-scroll-target="#receiving-the-data">Receiving the data</a></li>
+  <li><a href="#id-and-obfuscation" id="toc-id-and-obfuscation" class="nav-link" data-scroll-target="#id-and-obfuscation">ID and obfuscation</a></li>
+  <li><a href="#invisible-monsters" id="toc-invisible-monsters" class="nav-link" data-scroll-target="#invisible-monsters">Invisible monsters</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./map.html">Data</a></li><li class="breadcrumb-item"><a href="./monsters.html">Monster data</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">DCSS Webtile API Documentation</h1>
+<h1 class="title">Monster data</h1>
 </div>
 
 
@@ -217,14 +254,24 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="table-of-contents" class="level2">
-<h2 class="anchored" data-anchor-id="table-of-contents">Table of contents:</h2>
-<ul>
-<li><a href="./connection.html">Connecting to DCSS Webtiles</a></li>
-<li>Sending and receiving data</li>
-<li>Commands for the lobby</li>
-<li>Starting a game</li>
-</ul>
+<p>The monster data is sent along with the <a href="map.md">dungeon map data</a>.</p>
+<section id="receiving-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="receiving-the-data">Receiving the data</h2>
+<p>Below is the same map as described in the <a href="./dungeon_map.md">dungeon map data</a>, but with a <code>Worm</code> in the first visible row. The data dump below includes only the first two row of tiles (sent as if the monster was never seen before). The second row (starting with <code>'x': -2, 'y': -7</code>) contains the <code>'mon'</code> keyword in the second tile (the first visible tile) that has a monster dictionary as value. The first time a type of monster is encountered (<code>worm</code> in this case), the game will send various types of data (‘id’, ‘name’, ‘avghp’ and ‘threat’ being the most interesting).</p>
+<p><img src="images/monsters/map_monster_1.JPG" class="img-fluid"></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">'x'</span>: <span class="op">-</span><span class="dv">2</span>, <span class="st">'y'</span>: <span class="op">-</span><span class="dv">8</span>, <span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'x'</span>: <span class="op">-</span><span class="dv">2</span>, <span class="st">'y'</span>: <span class="op">-</span><span class="dv">7</span>, <span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'f'</span>: <span class="dv">33</span>, <span class="st">'mon'</span>: {<span class="st">'id'</span>: <span class="dv">1</span>, <span class="st">'name'</span>: <span class="st">'worm'</span>, <span class="st">'plural'</span>: <span class="st">'worms'</span>, <span class="st">'type'</span>: <span class="dv">54</span>, <span class="st">'typedata'</span>: {<span class="st">'avghp'</span>: <span class="dv">18</span>}, <span class="st">'att'</span>: <span class="dv">0</span>, <span class="st">'btype'</span>: <span class="dv">54</span>, <span class="st">'threat'</span>: <span class="dv">2</span>}, <span class="st">'mf'</span>: <span class="dv">1</span>, <span class="st">'g'</span>: <span class="st">'w'</span>, <span class="st">'col'</span>: <span class="dv">12</span>, <span class="st">'t'</span>: {<span class="st">'fg'</span>: <span class="dv">5116</span>, <span class="st">'bg'</span>: <span class="dv">4</span>, <span class="st">'doll'</span>: [[<span class="dv">5116</span>, <span class="dv">32</span>]], <span class="st">'mcache'</span>: <span class="va">None</span>}}, {<span class="st">'f'</span>: <span class="dv">33</span>, <span class="st">'mf'</span>: <span class="dv">1</span>, <span class="st">'g'</span>: <span class="st">'.'</span>, <span class="st">'col'</span>: <span class="dv">7</span>, <span class="st">'t'</span>: {<span class="st">'bg'</span>: <span class="dv">6</span>, <span class="st">'ov'</span>: [<span class="dv">2267</span>]}}, {<span class="st">'f'</span>: <span class="dv">7</span>, <span class="st">'mf'</span>: <span class="dv">2</span>, <span class="st">'g'</span>: <span class="st">'#'</span>, <span class="st">'col'</span>: <span class="dv">6</span>, <span class="st">'t'</span>: {<span class="st">'bg'</span>: <span class="dv">980</span>}}, {<span class="st">'mf'</span>: <span class="dv">26</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Assuming the character waits one turn, here is the updated map and data once the <code>worm</code> moves down south-east. Note that the ‘mon’ keyword get’s updated to <code>None</code> at the worm’s previous location (<code>'x': -1, 'y': -7</code>) and it’s ID can now be found at <code>'x': 0, 'y': -6</code>, where the monster appears in the image.</p>
+<p><img src="images/monsters/map_monster_2.JPG" class="img-fluid"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">'msg'</span>: <span class="st">'map'</span>, <span class="st">'cells'</span>: [{<span class="st">'x'</span>: <span class="op">-</span><span class="dv">2</span>, <span class="st">'y'</span>: <span class="op">-</span><span class="dv">8</span>, <span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'x'</span>: <span class="op">-</span><span class="dv">2</span>, <span class="st">'y'</span>: <span class="op">-</span><span class="dv">7</span>, <span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'mon'</span>: <span class="va">None</span>, <span class="st">'g'</span>: <span class="st">'.'</span>, <span class="st">'col'</span>: <span class="dv">7</span>, <span class="st">'t'</span>: {<span class="st">'fg'</span>: <span class="dv">0</span>, <span class="st">'doll'</span>: <span class="va">None</span>, <span class="st">'mcache'</span>: <span class="va">None</span>}}, {<span class="st">'x'</span>: <span class="dv">2</span>, <span class="st">'y'</span>: <span class="op">-</span><span class="dv">7</span>, <span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'x'</span>: <span class="dv">0</span>, <span class="st">'y'</span>: <span class="op">-</span><span class="dv">6</span>, <span class="st">'mon'</span>: {<span class="st">'id'</span>: <span class="dv">1</span>}, <span class="st">'g'</span>: <span class="st">'w'</span>, <span class="st">'col'</span>: <span class="dv">12</span>, <span class="st">'t'</span>: {<span class="st">'fg'</span>: <span class="dv">5116</span>, <span class="st">'doll'</span>: [[<span class="dv">5116</span>, <span class="dv">32</span>]], <span class="st">'mcache'</span>: <span class="va">None</span>}}, {<span class="st">'x'</span>: <span class="dv">2</span>, <span class="st">'y'</span>: <span class="op">-</span><span class="dv">6</span>, <span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'x'</span>: <span class="op">-</span><span class="dv">4</span>, <span class="st">'y'</span>: <span class="op">-</span><span class="dv">5</span>, <span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'x'</span>: <span class="dv">2</span>, <span class="st">'y'</span>: <span class="op">-</span><span class="dv">5</span>, <span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'x'</span>: <span class="op">-</span><span class="dv">4</span>, <span class="st">'y'</span>: <span class="op">-</span><span class="dv">4</span>, <span class="st">'mf'</span>: <span class="dv">26</span>}, {<span class="st">'x'</span>: <span class="dv">2</span>, <span class="st">'y'</span>: <span class="op">-</span><span class="dv">4</span>, <span class="st">'mf'</span>: <span class="dv">26</span>}]}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="id-and-obfuscation" class="level2">
+<h2 class="anchored" data-anchor-id="id-and-obfuscation">ID and obfuscation</h2>
+<p>Generally, when a new monster ID appears, it will be accompanied with a monster dictionary (as the “worm” did in the first example above). This is not universally true. In some circumstances, when a known monster moves to a new tile and a new monster, of the same type, moves into the tile that was previously occupied by the known monster that moved, a new ID will be provided without any monster dictionary. This new monster should have the same monster info as the monster that previously occupied the space. In other circumstances, when a group of similar monsters appear one after the other, only the first monster will contain the monster dictionary. Subsequent monsters will only contain the ID. The data of the highest known ID should be copied to that monster. Both of these are assumptions and may be an unsafe assumption.</p>
+<p>In order to limit the knowledge that can be gained from the information transfered, some level of obfuscation is built-in to the system of monster ID. A monster will generally retain the same ID as long as it is in the field of view of the character, therefore, if a known ID appears in a location, it is safe to assume it is the same monster as seen previously (e.g.&nbsp;the worm above moves from one tile to the other and retains the same ID). If the monster goes out of the field of view of the character, it will likely come back with a new ID. Therefore, tracking ID is not correct as some monsters may have simply changed ID.</p>
+</section>
+<section id="invisible-monsters" class="level2">
+<h2 class="anchored" data-anchor-id="invisible-monsters">Invisible monsters</h2>
+<p>Assuming the character can’t see invisible, when a monster goes invisible, the <code>mon</code> keyword will be updated to <code>None</code>. Thankfully, since the monster will occasionally create a disturbance, it is possible to find the location of invisible monsters by looking for the <code>{</code> glyph (under the <code>g</code> data in the dictionary for each tile).</p>
 
 
 </section>
@@ -785,10 +832,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./map.html" class="pagination-link" aria-label="Map data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Map data</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./connection.html" class="pagination-link" aria-label="Connecting to DCSS Webtiles">
-        <span class="nav-page-text">Connecting to DCSS Webtiles</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./character.html" class="pagination-link" aria-label="Character data">
+        <span class="nav-page-text">Character data</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

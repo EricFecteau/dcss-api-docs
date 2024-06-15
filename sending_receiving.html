@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>DCSS Website API Docs - DCSS Webtile API Documentation</title>
+<title>DCSS Website API Docs - Sending and receiving messages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./connection.html" rel="next">
+<link href="./login_games.html" rel="next">
+<link href="./connection.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -83,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./connection.html">API</a></li><li class="breadcrumb-item"><a href="./sending_receiving.html">Sending and receiving messages</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -113,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
@@ -134,7 +169,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sending_receiving.html" class="sidebar-item-text sidebar-link">
+  <a href="./sending_receiving.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Sending and receiving messages</span></a>
   </div>
 </li>
@@ -191,16 +226,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#table-of-contents" id="toc-table-of-contents" class="nav-link active" data-scroll-target="#table-of-contents">Table of contents:</a></li>
+  <li><a href="#receiving-messages" id="toc-receiving-messages" class="nav-link active" data-scroll-target="#receiving-messages">Receiving messages</a></li>
+  <li><a href="#sending-messages" id="toc-sending-messages" class="nav-link" data-scroll-target="#sending-messages">Sending messages</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./connection.html">API</a></li><li class="breadcrumb-item"><a href="./sending_receiving.html">Sending and receiving messages</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">DCSS Webtile API Documentation</h1>
+<h1 class="title">Sending and receiving messages</h1>
 </div>
 
 
@@ -217,14 +253,233 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="table-of-contents" class="level2">
-<h2 class="anchored" data-anchor-id="table-of-contents">Table of contents:</h2>
-<ul>
-<li><a href="./connection.html">Connecting to DCSS Webtiles</a></li>
-<li>Sending and receiving data</li>
-<li>Commands for the lobby</li>
-<li>Starting a game</li>
-</ul>
+<p>Once <a href="./connection.html">connected</a> to the DCSS Webtiles, the game will send various messages and will expect some interactions.</p>
+<section id="receiving-messages" class="level2">
+<h2 class="anchored" data-anchor-id="receiving-messages">Receiving messages</h2>
+<p>The first few messages that are received, before the user sends any commands, are the following:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"ping"</span>}</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"lobby_clear"</span>}</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"lobby_complete"</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>All messages received from DCSS webtiles will have the <code>msg</code> dictionary key. This will indicate what type of message it is. The above three are simply information about the connection and the state of the lobby. Other messages will have other keys for additional information. Once the <code>lobby_complete</code> message is received, DCSS is ready to receive the next commands. It will not send anything until a command is received.</p>
+</section>
+<section id="sending-messages" class="level2">
+<h2 class="anchored" data-anchor-id="sending-messages">Sending messages</h2>
+<p>All messages sent to DCSS Webtiles have to be in the JSON format. The most basic form are simple key presses, a “msg” key of type “input”, with a “text” key with the specified key(s).</p>
+<p>For example, this will send the <code>.</code> (wait) key to DCSS Webtiles:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"input"</span>, <span class="st">"text"</span>: <span class="st">"."</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It is also possible to send multiple keys, one after the other. This will send <code>yes</code> to DCSS Webtiles:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"input"</span>, <span class="st">"text"</span>: <span class="st">"yes"</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>There are also multiple ways to send some of the commands. For example, both of these will send the “tab” command:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"input"</span>, <span class="st">"text"</span>: <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>}</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>{<span class="st">"msg"</span>: <span class="st">"key"</span>, <span class="st">"keycode"</span>: <span class="dv">9</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here is a table representing the keycodes for each special key. The <code>dcss-api</code> column is the way to address them while using <a href="https://github.com/EricFecteau/dcss-api">dcss-api</a> – (<code>webtile.write_key("key_esc")</code>).</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>dcss-api</th>
+<th>JSON message</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CTRL + A</td>
+<td>“key_ctrl_a”</td>
+<td>{“msg”: “key”, “keycode”: 1}</td>
+</tr>
+<tr class="even">
+<td>CTRL + B</td>
+<td>“key_ctrl_b”</td>
+<td>{“msg”: “key”, “keycode”: 2}</td>
+</tr>
+<tr class="odd">
+<td>CTRL + C</td>
+<td>“key_ctrl_c”</td>
+<td>{“msg”: “key”, “keycode”: 3}</td>
+</tr>
+<tr class="even">
+<td>CTRL + D</td>
+<td>“key_ctrl_d”</td>
+<td>{“msg”: “key”, “keycode”: 4}</td>
+</tr>
+<tr class="odd">
+<td>CTRL + E</td>
+<td>“key_ctrl_e”</td>
+<td>{“msg”: “key”, “keycode”: 5}</td>
+</tr>
+<tr class="even">
+<td>CTRL + F</td>
+<td>“key_ctrl_f”</td>
+<td>{“msg”: “key”, “keycode”: 6}</td>
+</tr>
+<tr class="odd">
+<td>CTRL + G</td>
+<td>“key_ctrl_g”</td>
+<td>{“msg”: “key”, “keycode”: 7}</td>
+</tr>
+<tr class="even">
+<td>CTRL + H</td>
+<td>“key_ctrl_h”</td>
+<td>{“msg”: “key”, “keycode”: 8}</td>
+</tr>
+<tr class="odd">
+<td>CTRL + I</td>
+<td>“key_ctrl_i”</td>
+<td>{“msg”: “key”, “keycode”: 9}</td>
+</tr>
+<tr class="even">
+<td>CTRL + J</td>
+<td>“key_ctrl_j”</td>
+<td>{“msg”: “key”, “keycode”: 10}</td>
+</tr>
+<tr class="odd">
+<td>CTRL + K</td>
+<td>“key_ctrl_k”</td>
+<td>{“msg”: “key”, “keycode”: 11}</td>
+</tr>
+<tr class="even">
+<td>CTRL + L</td>
+<td>“key_ctrl_l”</td>
+<td>{“msg”: “key”, “keycode”: 12}</td>
+</tr>
+<tr class="odd">
+<td>CTRL + M</td>
+<td>“key_ctrl_m”</td>
+<td>{“msg”: “key”, “keycode”: 13}</td>
+</tr>
+<tr class="even">
+<td>CTRL + N</td>
+<td>“key_ctrl_n”</td>
+<td>{“msg”: “key”, “keycode”: 14}</td>
+</tr>
+<tr class="odd">
+<td>CTRL + O</td>
+<td>“key_ctrl_o”</td>
+<td>{“msg”: “key”, “keycode”: 15}</td>
+</tr>
+<tr class="even">
+<td>CTRL + P</td>
+<td>“key_ctrl_p”</td>
+<td>{“msg”: “key”, “keycode”: 16}</td>
+</tr>
+<tr class="odd">
+<td>CTRL + Q</td>
+<td>“key_ctrl_q”</td>
+<td>{“msg”: “key”, “keycode”: 17}</td>
+</tr>
+<tr class="even">
+<td>CTRL + R</td>
+<td>“key_ctrl_r”</td>
+<td>{“msg”: “key”, “keycode”: 18}</td>
+</tr>
+<tr class="odd">
+<td>CTRL + S</td>
+<td>“key_ctrl_s”</td>
+<td>{“msg”: “key”, “keycode”: 19}</td>
+</tr>
+<tr class="even">
+<td>CTRL + T</td>
+<td>“key_ctrl_t”</td>
+<td>{“msg”: “key”, “keycode”: 20}</td>
+</tr>
+<tr class="odd">
+<td>CTRL + U</td>
+<td>“key_ctrl_u”</td>
+<td>{“msg”: “key”, “keycode”: 21}</td>
+</tr>
+<tr class="even">
+<td>CTRL + V</td>
+<td>“key_ctrl_v”</td>
+<td>{“msg”: “key”, “keycode”: 22}</td>
+</tr>
+<tr class="odd">
+<td>CTRL + W</td>
+<td>“key_ctrl_w”</td>
+<td>{“msg”: “key”, “keycode”: 23}</td>
+</tr>
+<tr class="even">
+<td>CTRL + X</td>
+<td>“key_ctrl_x”</td>
+<td>{“msg”: “key”, “keycode”: 24}</td>
+</tr>
+<tr class="odd">
+<td>CTRL + Y</td>
+<td>“key_ctrl_y”</td>
+<td>{“msg”: “key”, “keycode”: 25}</td>
+</tr>
+<tr class="even">
+<td>CTRL + Z</td>
+<td>“key_ctrl_z”</td>
+<td>{“msg”: “key”, “keycode”: 26}</td>
+</tr>
+<tr class="odd">
+<td>esc</td>
+<td>“key_esc”</td>
+<td>{“msg”: “key”, “keycode”: 27}</td>
+</tr>
+<tr class="even">
+<td>tab</td>
+<td>“key_tab”</td>
+<td>{“msg”: “key”, “keycode”: 9}</td>
+</tr>
+<tr class="odd">
+<td>North</td>
+<td>“key_dir_n”</td>
+<td>{“msg”: “input”, “text”: “8”}</td>
+</tr>
+<tr class="even">
+<td>North East</td>
+<td>“key_dir_ne”</td>
+<td>{“msg”: “input”, “text”: “9”}</td>
+</tr>
+<tr class="odd">
+<td>Est</td>
+<td>“key_dir_e”</td>
+<td>{“msg”: “input”, “text”: “6”}</td>
+</tr>
+<tr class="even">
+<td>South East</td>
+<td>“key_dir_se”</td>
+<td>{“msg”: “input”, “text”: “3”}</td>
+</tr>
+<tr class="odd">
+<td>South</td>
+<td>“key_dir_s”</td>
+<td>{“msg”: “input”, “text”: “2”}</td>
+</tr>
+<tr class="even">
+<td>South West</td>
+<td>“key_dir_sw”</td>
+<td>{“msg”: “input”, “text”: “1”}</td>
+</tr>
+<tr class="odd">
+<td>West</td>
+<td>“key_dir_w”</td>
+<td>{“msg”: “input”, “text”: “4”}</td>
+</tr>
+<tr class="even">
+<td>North West</td>
+<td>“key_dir_nw”</td>
+<td>{“msg”: “input”, “text”: “7”}</td>
+</tr>
+<tr class="odd">
+<td>Down stairs</td>
+<td>“key_stair_down”</td>
+<td>{“msg”: “input”, “text”: “&gt;”}</td>
+</tr>
+<tr class="even">
+<td>Up stairs</td>
+<td>“key_stair_up”</td>
+<td>{“msg”: “input”, “text”: “&lt;”}</td>
+</tr>
+<tr class="odd">
+<td>enter</td>
+<td>“key_enter”</td>
+<td>{“msg”: “input”, “text”: “}</td>
+</tr>
+</tbody>
+</table>
+<p>There are a few special JSON messages that are accepted by the game, especially to navigate the lobby. The <a href="./login_games.html">login and games</a> page go over many of them in more details. Other ones, especially the admin and user commands, can be found <a href="https://github.com/crawl/crawl/blob/e618eeaa78d0fb2a4ce7915313cc9e649aa10571/crawl-ref/source/webserver/webtiles/ws_handler.py#L321">here in the DCSS Webtiles code</a>.</p>
 
 
 </section>
@@ -785,10 +1040,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./connection.html" class="pagination-link" aria-label="Connecting to DCSS Webtiles">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Connecting to DCSS Webtiles</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./connection.html" class="pagination-link" aria-label="Connecting to DCSS Webtiles">
-        <span class="nav-page-text">Connecting to DCSS Webtiles</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./login_games.html" class="pagination-link" aria-label="Login and games">
+        <span class="nav-page-text">Login and games</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
