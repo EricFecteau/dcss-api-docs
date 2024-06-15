@@ -2,11 +2,11 @@
 title: "Monster data"
 ---
 
-The monster data is sent along with the [dungeon map data](map.md).
+The monster data is sent along with the [dungeon map data](map.qmd).
 
 ## Receiving the data
 
-Below is the same map as described in the [dungeon map data](./dungeon_map.md), but with a `Worm` in the first visible row. The data dump below includes only the first two row of tiles (sent as if the monster was never seen before). The second row (starting with `'x': -2, 'y': -7`) contains the `'mon'` keyword in the second tile (the first visible tile) that has a monster dictionary as value. The first time a type of monster is encountered (`worm` in this case), the game will send various types of data ('id', 'name', 'avghp' and 'threat' being the most interesting). 
+Below is the same map as described in the [dungeon map data](map.qmd), but with a `Worm` in the first visible row. The data dump below includes only the first two row of tiles (sent as if the monster was never seen before). The second row (starting with `'x': -2, 'y': -7`) contains the `'mon'` keyword in the second tile (the first visible tile) that has a monster dictionary as value. The first time a type of monster is encountered (`worm` in this case), the game will send various types of data ('id', 'name', 'avghp' and 'threat' being the most interesting). 
 
 ![](images/monsters/map_monster_1.JPG)
 

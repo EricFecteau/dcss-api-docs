@@ -4,7 +4,13 @@ title: "DCSS Webtile API Documentation"
 
 ## Table of contents:
 
-* [Connecting to DCSS Webtiles](connection.qmd)
-* Sending and receiving data
-* Commands for the lobby
-* Starting a game
+* API
+    * [Connecting to DCSS Webtiles](connection.qmd)
+    * [Sending and receiving messages](sending_receiving.qmd)
+    * [Login and games](login_games.qmd)
+* Data
+    * [Map data](map.qmd)
+    * [Monster data](monsters.qmd) (TBD)
+    * [Character data](character.qmd) (TBD)
+    * [Menu and UI data](menus.qmd) (TBD)
+    * [Message data](messages.qmd) (TBD)

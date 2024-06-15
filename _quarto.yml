@@ -24,11 +24,13 @@ website:
           - href: map.qmd
             text: Map data
           - href: monsters.qmd
-            text: Monster data
+            text: Monster data (TBD)
           - href: character.qmd
-            text: Character data
+            text: Character data  (TBD)
           - href: menus.qmd
-            text: Menu and UI data
+            text: Menu and UI data (TBD)
+          - href: messages.qmd
+            text: Message data (TBD)
 
 format:
   html:
